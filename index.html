@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete AI & Technology Teaching Guide - Classes 1-10</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --text-light: #94a3b8;
+            --border: #334155;
+            --code-bg: #0f172a;
+            --code-text: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #1e293b;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 15px;
+        }
+
+        /* Navigation */
+        .nav-container {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            overflow-x: auto;
+            padding: 0 20px;
+            gap: 5px;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            white-space: nowrap;
+            border-bottom: 3px solid transparent;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Topic Section */
+        .topic {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            scroll-margin-top: 70px;
+        }
+
+        .topic-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .topic-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .topic-title {
+            font-size: 1.8rem;
+            color: var(--text);
+        }
+
+        .topic-meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Hour Sections */
+        .hour {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .hour-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hour-title::before {
+            content: '⏱️';
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            display: block;
+        }
+
+        .data-table thead {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .data-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .data-table tbody tr:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .data-table tbody tr:nth-child(even) {
+            background: rgba(37, 99, 235, 0.02);
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+        }
+
+        code {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Tags/Badges */
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .tag-green { background: rgba(16, 185, 129, 0.15); color: var(--success); }
+        .tag-blue { background: rgba(37, 99, 235, 0.15); color: var(--primary); }
+        .tag-purple { background: rgba(124, 58, 237, 0.15); color: var(--secondary); }
+        .tag-orange { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+        .tag-red { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Activity Box */
+        .activity-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .activity-box strong {
+            color: var(--accent);
+        }
+
+        /* Learning Outcome */
+        .outcome {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 25px;
+        }
+
+        .outcome strong {
+            color: var(--success);
+        }
+
+        /* Tips */
+        .tip {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(124, 58, 237, 0.05));
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .tip strong {
+            color: var(--secondary);
+        }
+
+        /* Summary Table */
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .summary-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .summary-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Print Styles */
+        @media print {
+            .theme-toggle, .nav-container { display: none; }
+            .topic { page-break-inside: avoid; break-inside: avoid; }
+            .hour { page-break-inside: avoid; break-inside: avoid; }
+            body { background: white; color: black; }
+            .header { background: #2563eb !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8rem; }
+            .topic { padding: 25px; }
+            .topic-title { font-size: 1.4rem; }
+            .data-table { font-size: 0.85rem; }
+            .data-table th, .data-table td { padding: 10px; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Theme</button>
+
+    <header class="header">
+        <h1>🎓 Complete AI & Technology Teaching Guide</h1>
+        <p>Comprehensive Curriculum for Classes 1-10 | 10 Topics × 3 Hours Each</p>
+        <span class="badge">📚 30 Hours Total | Hands-On | Project-Based</span>
+    </header>
+
+    <nav class="nav-container">
+        <div class="nav">
+            <a href="#topic1" class="nav-item active" onclick="setActive(this)">1. AI & Computers</a>
+            <a href="#topic2" class="nav-item" onclick="setActive(this)">2. Types of AI</a>
+            <a href="#topic3" class="nav-item" onclick="setActive(this)">3. AI for Academics</a>
+            <a href="#topic4" class="nav-item" onclick="setActive(this)">4. Code Languages</a>
+            <a href="#topic5" class="nav-item" onclick="setActive(this)">5. HTML Basics</a>
+            <a href="#topic6" class="nav-item" onclick="setActive(this)">6. Web Development</a>
+            <a href="#topic7" class="nav-item" onclick="setActive(this)">7. Game Dev</a>
+            <a href="#topic8" class="nav-item" onclick="setActive(this)">8. Chatbots</a>
+            <a href="#topic9" class="nav-item" onclick="setActive(this)">9. App Dev</a>
+            <a href="#topic10" class="nav-item" onclick="setActive(this)">10. IoT</a>
+            <a href="#tools" class="nav-item" onclick="setActive(this)">🛠️ Tools</a>
+            <a href="#summary" class="nav-item" onclick="setActive(this)">📋 Summary</a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- TOPIC 1 -->
+        <section class="topic" id="topic1">
+            <div class="topic-header">
+                <div class="topic-number">1</div>
+                <div>
+                    <h2 class="topic-title">Introduction to AI and Computer Basics</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 1-5 | Project: AI Timeline + Robot Drawing</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: What is a Computer?</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation for Students</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Computer Definition</strong></td>
+                            <td>A computer is an electronic machine that takes <strong>input</strong>, <strong>processes</strong> it, and gives <strong>output</strong>. Think of it like a very fast calculator that never gets tired.</td>
+                            <td>Show different devices: laptop, tablet, smartphone, smartwatch. Ask: "Which of these is a computer?" <span class="tag tag-green">Answer: ALL are!</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Parts of a Computer</strong></td>
+                            <td><strong>Hardware</strong> = Physical parts you can touch (keyboard, mouse, screen, CPU). <strong>Software</strong> = Instructions that tell hardware what to do (apps, games, Windows).</td>
+                            <td>Bring a real CPU. Open it and show RAM, hard disk, motherboard. Let students touch and identify parts.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Input → Process → Output</strong></td>
+                            <td>Like making Maggi: Ingredients (input) → Cooking (process) → Ready Maggi (output).</td>
+                            <td><strong>Activity:</strong> Students draw the "Maggi Computer" diagram showing input, process, and output.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Memory Types</strong></td>
+                            <td><strong>RAM</strong> (Temporary, like your brain during an exam — forgets after power off). <strong>ROM/Hard Disk</strong> (Permanent, like writing in a notebook — stays forever).</td>
+                            <td><strong>Game:</strong> "Memory Match" — flash cards with RAM vs ROM examples. Students sort them.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Introduction to Artificial Intelligence</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is AI?</strong></td>
+                            <td>AI = Making computers think and learn like humans. <strong>Not magic — it's math and patterns!</strong></td>
+                            <td>Show Siri/Alexa/Google Assistant. Ask students what they think makes it "smart."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI vs Normal Computer</strong></td>
+                            <td><strong>Normal Computer:</strong> Follows exact instructions (if A then B). <strong>AI Computer:</strong> Learns from examples and makes decisions.</td>
+                            <td><strong>Demo:</strong> Show a calculator (normal) vs. Google Lens identifying a flower (AI). Discuss the difference.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Real-Life AI Examples</strong></td>
+                            <td>YouTube recommendations, Netflix suggestions, face unlock on phones, Google Maps traffic prediction, spam filters in Gmail.</td>
+                            <td><strong>Group Discussion:</strong> Each group lists 5 AI tools they use daily. Share with class.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>History of AI</strong></td>
+                            <td><strong>1950s:</strong> Term "AI" coined. <strong>1997:</strong> IBM Deep Blue beat chess champion. <strong>2011:</strong> Siri launched. <strong>2022:</strong> ChatGPT released.</td>
+                            <td>Create a <strong>classroom AI Timeline</strong> on chart paper. Students add events.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: How AI Works + Assessment</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data → Training → Prediction</strong></td>
+                            <td>AI learns like a baby: See many dogs → Remember features → Identify new dogs.</td>
+                            <td><strong>Live Demo:</strong> Use Teachable Machine (Google) to train a model to recognize "Thumbs Up" vs "Thumbs Down" using webcam.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pattern Recognition</strong></td>
+                            <td>AI finds patterns in data. Like finding all circles in a picture of mixed shapes.</td>
+                            <td><strong>Worksheet:</strong> Circle all triangles in a mixed shape sheet. Explain: "This is what AI does — but millions of times faster!"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI in Daily Life</strong></td>
+                            <td>Smart home devices, medical diagnosis, weather prediction, language translation.</td>
+                            <td><strong>Role Play:</strong> Students act as "AI Doctor," "AI Farmer," "AI Teacher" showing how AI helps.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Assessment</strong></td>
+                            <td>10 MCQs + 1 Drawing</td>
+                            <td>"Draw your dream AI robot and write 3 things it will do." Review answers together.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students understand computers, their parts, and how AI makes computers "smart" through pattern recognition.
+            </div>
+        </section>
+
+        <!-- TOPIC 2 -->
+        <section class="topic" id="topic2">
+            <div class="topic-header">
+                <div class="topic-number">2</div>
+                <div>
+                    <h2 class="topic-title">Types of AI, Prompting, and Ethical AI</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 5-7 | Project: AI Ethics Pledge Poster</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: Types of AI</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Type</th><th>Explanation</th><th>Real Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag tag-blue">Narrow AI</span></td>
+                            <td>AI designed for <strong>ONE</strong> specific task. Cannot do anything else.</td>
+                            <td>Siri, Alexa, Google Translate, Chess-playing AI</td>
+                            <td><strong>Game:</strong> "One-Trick Pony" — students act as Narrow AI: one student only answers math, one only tells jokes, etc.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-purple">General AI</span></td>
+                            <td>AI that can think, learn, and solve <strong>ANY</strong> problem like a human. <strong>Does NOT exist yet!</strong></td>
+                            <td>Characters like JARVIS (Iron Man), HAL 9000</td>
+                            <td><strong>Discussion:</strong> "Would you want a robot friend? What would it need to understand?"</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-red">Super AI</span></td>
+                            <td>AI smarter than ALL humans combined. <strong>Hypothetical — may never exist.</strong></td>
+                            <td>Movies like Terminator, The Matrix</td>
+                            <td><strong>Debate:</strong> "Is Super AI possible? Is it dangerous?" Divide class into For/Against.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-green">Reactive Machines</span></td>
+                            <td>AI that responds to current input only. No memory.</td>
+                            <td>IBM Deep Blue (chess), basic calculator</td>
+                            <td><strong>Demo:</strong> Rock-Paper-Scissors game that only sees current move, not patterns.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-orange">Limited Memory AI</span></td>
+                            <td>AI that uses past data to make better decisions.</td>
+                            <td>Self-driving cars, Netflix recommendations</td>
+                            <td><strong>Activity:</strong> Students play a guessing game where they use previous answers to guess better.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-blue">Theory of Mind AI</span></td>
+                            <td>AI that understands human emotions and thoughts. <strong>Under research.</strong></td>
+                            <td>Sophia the Robot (partial), future companion robots</td>
+                            <td><strong>Activity:</strong> Students write how they'd feel if a robot understood their sadness.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Prompting (How to Talk to AI)</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Practice Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is a Prompt?</strong></td>
+                            <td>Instructions you give to AI to get the best answer. Like asking a teacher a clear question.</td>
+                            <td><span class="tag tag-red">Bad:</span> "Tell me about India." <span class="tag tag-green">Good:</span> "Write a 5-line poem about India's independence in simple Hindi for Class 5 students."</td>
+                            <td>Students rewrite 5 bad prompts into good ones.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Be Specific</strong></td>
+                            <td>AI needs details. Vague = bad results.</td>
+                            <td>"Draw a dog" vs "Draw a golden retriever puppy sitting in a garden with flowers"</td>
+                            <td><strong>Exercise:</strong> Expand "Write a story" → Add character, setting, mood, length.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Give Context</strong></td>
+                            <td>Tell AI WHO it's writing for and WHY.</td>
+                            <td>"Explain photosynthesis as if I'm 8 years old, using a pizza analogy."</td>
+                            <td>Students create prompts for different audiences (baby, grandparent, alien).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use Examples</strong></td>
+                            <td>Show AI what you want by giving samples.</td>
+                            <td>"Write like this: [paste example]. Now write about [new topic] in the same style."</td>
+                            <td><strong>Activity:</strong> "AI Copycat" — students write 2 lines, then ask AI to continue in same style.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chain of Thought</strong></td>
+                            <td>Ask AI to think step-by-step.</td>
+                            <td>"Solve this math problem. Show ALL your steps. Don't just give the answer."</td>
+                            <td>Students solve a puzzle step-by-step, then ask AI to do the same.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Role Prompting</strong></td>
+                            <td>Tell AI to act as someone.</td>
+                            <td>"You are a friendly science teacher. Explain gravity to a 10-year-old."</td>
+                            <td><strong>Role Play:</strong> Students take turns being "AI" and responding as different characters.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: Ethical AI</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Case Study</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>AI Ethics</strong></td>
+                            <td>Rules about using AI responsibly and fairly.</td>
+                            <td>—</td>
+                            <td><strong>Story Time:</strong> Tell the story of an AI that rejected loan applications unfairly. Discuss.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Bias</strong></td>
+                            <td>AI learns from data. If data is unfair, AI becomes unfair.</td>
+                            <td>Amazon's AI hiring tool favored men over women because training data had more male resumes.</td>
+                            <td><strong>Activity:</strong> Train a simple "fruit classifier" using only red apples. Test with green apple — it fails! Discuss bias.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privacy Concerns</strong></td>
+                            <td>AI collects your data. Where does it go? Who sees it?</td>
+                            <td>TikTok/Instagram using your photos to train AI.</td>
+                            <td><strong>Discussion:</strong> "Would you let AI read all your WhatsApp chats? Why or why not?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deepfakes</strong></td>
+                            <td>AI creates fake videos/audio that look real.</td>
+                            <td>Fake videos of politicians, celebrity scams.</td>
+                            <td><strong>Show & Tell:</strong> Show a real vs deepfake video. Teach students how to spot fakes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Job Displacement</strong></td>
+                            <td>Will AI take jobs?</td>
+                            <td>Factory robots, AI customer service.</td>
+                            <td><strong>Debate:</strong> "AI creates more jobs than it destroys — True or False?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Rights & Responsibility</strong></td>
+                            <td>If AI makes a mistake, who is responsible?</td>
+                            <td>Self-driving car accident — blame the car, programmer, or owner?</td>
+                            <td><strong>Courtroom Drama:</strong> Mock trial where "AI" is on trial for a mistake.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>📋 Assessment:</strong> Scenario-based questions: "What would you do if..." + Create an "AI Ethics Pledge" poster.
+                </div>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students classify AI types, write effective prompts, and understand ethical responsibilities.
+            </div>
+        </section>
+
+        <!-- TOPIC 3 -->
+        <section class="topic" id="topic3">
+            <div class="topic-header">
+                <div class="topic-number">3</div>
+                <div>
+                    <h2 class="topic-title">AI for Academics & Generative AI</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 6-8 | Project: Student AI Toolkit</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: AI for Academics</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Use Case</th><th>How AI Helps</th><th>Tool Examples</th><th>Student Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Research & Summarization</strong></td>
+                            <td>AI reads long articles and gives short summaries.</td>
+                            <td>NotebookLM, Scholarcy, ChatGPT</td>
+                            <td>Give students a 5-page article. Use AI to summarize in 5 lines. Compare with their own summary.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Writing Assistance</strong></td>
+                            <td>AI helps with grammar, vocabulary, and structure.</td>
+                            <td>Grammarly, QuillBot, Jenni AI</td>
+                            <td>Students write a paragraph, then use AI to improve it. Compare before/after.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Math Problem Solving</strong></td>
+                            <td>AI explains step-by-step solutions.</td>
+                            <td>Photomath, WolframAlpha, Khanmigo</td>
+                            <td>Students solve a tough problem, then ask AI to explain differently.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Language Learning</strong></td>
+                            <td>AI translates, corrects pronunciation, and practices conversation.</td>
+                            <td>Duolingo, Google Translate, ChatGPT</td>
+                            <td><strong>Pair Activity:</strong> One student speaks Hindi, AI translates to English. Other responds.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Creating Study Materials</strong></td>
+                            <td>AI generates flashcards, quizzes, and mind maps.</td>
+                            <td>Quizlet AI, Canva AI, MindMeister</td>
+                            <td>Students input their notes → AI generates a quiz → Class plays quiz game.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personalized Learning</strong></td>
+                            <td>AI adapts to each student's speed and style.</td>
+                            <td>Khan Academy, BYJU's, Coursera</td>
+                            <td><strong>Demo:</strong> Show how Khan Academy adjusts difficulty based on student answers.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Introduction to Generative AI</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Demo/Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is Generative AI?</strong></td>
+                            <td>AI that <strong>CREATES</strong> new content — text, images, music, code, videos. Not just answering questions!</td>
+                            <td><strong>Live Demo:</strong> Use ChatGPT to write a poem, DALL-E to draw a picture, Suno to make music. Students watch AI create in real-time.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>How GenAI Works</strong></td>
+                            <td>Trained on MASSIVE data (books, websites, images). Learns patterns. Predicts next word/pixel. <strong>NOT looking up answers from a database!</strong></td>
+                            <td><strong>Analogy:</strong> Like a musician who has heard 1 million songs and can compose a new one in that style.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Text Generation</strong></td>
+                            <td>ChatGPT, Claude, Gemini write essays, stories, code, emails.</td>
+                            <td><strong>Activity:</strong> Students give AI a 3-word story starter. AI writes the rest. Class votes best story.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Image Generation</strong></td>
+                            <td>DALL-E, Midjourney, Stable Diffusion create images from text.</td>
+                            <td><strong>Activity:</strong> "Draw an astronaut riding a horse on Mars in Van Gogh style." Show results. Discuss creativity.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Generation</strong></td>
+                            <td>GitHub Copilot, Replit Ghostwriter write code from descriptions.</td>
+                            <td><strong>Demo:</strong> Type "Create a button that changes color when clicked" → AI writes HTML/CSS/JS code.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Music & Video Generation</strong></td>
+                            <td>Suno (music), Runway (video), Pika create media from prompts.</td>
+                            <td><strong>Activity:</strong> Generate a 30-second song about "My School" using AI. Play for class.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: Using GenAI Responsibly in Academics</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Topic</th><th>Key Points</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Academic Integrity</strong></td>
+                            <td>AI can help, but don't copy-paste. Use it as a tutor, not a ghostwriter.</td>
+                            <td><strong>Case Study:</strong> Two students — one uses AI to learn, one copies AI answers. Compare results in exam.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Hallucinations</strong></td>
+                            <td>AI sometimes makes up fake facts. <strong>ALWAYS verify!</strong></td>
+                            <td><strong>Game:</strong> "Fact or Fiction?" — AI generates 5 facts. Students research which are true/false.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Citing AI</strong></td>
+                            <td>How to give credit when using AI.</td>
+                            <td><strong>Worksheet:</strong> Practice writing "I used ChatGPT to brainstorm ideas for this essay."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prompt Engineering for Study</strong></td>
+                            <td>Best prompts: "Explain like I'm 10," "Give 3 examples," "Create a study schedule for my exam."</td>
+                            <td><strong>Competition:</strong> Best prompt wins! Students create prompts for different subjects.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>📋 Assessment:</strong> Create a "Student AI Toolkit" — a one-page guide on which AI tools to use for which subject, with do's and don'ts.
+                </div>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students use AI as an academic tool, understand generative AI capabilities, and maintain academic integrity.
+            </div>
+        </section>
+
+        <!-- TOPIC 4 -->
+        <section class="topic" id="topic4">
+            <div class="topic-header">
+                <div class="topic-number">4</div>
+                <div>
+                    <h2 class="topic-title">Basics of Code Languages</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 5-8 | Project: "Hello World" in 2 Languages</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: What is Programming?</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Analogy</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is Code?</strong></td>
+                            <td>Instructions written in a language computers understand.</td>
+                            <td>Like a recipe for a robot chef.</td>
+                            <td><strong>Unplugged Activity:</strong> Students write "instructions" for making a sandwich. Another student follows EXACTLY (literal interpretation = bugs!).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Why Learn to Code?</strong></td>
+                            <td>Problem-solving, creativity, jobs of the future, understanding technology.</td>
+                            <td>—</td>
+                            <td><strong>Discussion:</strong> "What would the world look like without programmers?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compiler vs Interpreter</strong></td>
+                            <td><strong>Compiler</strong> = translates ALL code at once (C++). <strong>Interpreter</strong> = translates line by line (Python).</td>
+                            <td>Compiler = reading a whole book then summarizing. Interpreter = reading aloud sentence by sentence.</td>
+                            <td><strong>Demo:</strong> Show Python running line-by-line in IDLE vs. C++ compiling first.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Syntax vs Logic</strong></td>
+                            <td><strong>Syntax</strong> = grammar of code (must be perfect). <strong>Logic</strong> = what you want to achieve.</td>
+                            <td>Syntax = spelling in English. Logic = the story you're telling.</td>
+                            <td><strong>Game:</strong> "Fix the Bug" — show code with syntax errors. Students find and fix them.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Overview of 4 Languages</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Language</th><th>Best For</th><th>Key Feature</th><th>Simple Code Example</th><th>When to Teach</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tag tag-orange">HTML</span></td>
+                            <td>Websites, web pages</td>
+                            <td>Tags and structure</td>
+                            <td><code>&lt;h1&gt;Hello World&lt;/h1&gt;</code></td>
+                            <td>Classes 5-6</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-blue">Python</span></td>
+                            <td>Beginners, AI, data science, automation</td>
+                            <td>Simple, readable</td>
+                            <td><code>print("Hello World")</code></td>
+                            <td>Classes 6-8</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-green">JavaScript</span></td>
+                            <td>Interactive websites, web apps</td>
+                            <td>Runs in browser</td>
+                            <td><code>alert("Hello World");</code></td>
+                            <td>Classes 7-9</td>
+                        </tr>
+                        <tr>
+                            <td><span class="tag tag-purple">C++</span></td>
+                            <td>Games, systems, competitive programming</td>
+                            <td>Fast, powerful</td>
+                            <td><code>cout &lt;&lt; "Hello World";</code></td>
+                            <td>Classes 8-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>Comparative Activity:</strong> Show the same task in all 4 languages: Print "Hello, [Student Name]!" Students vote: Which looks easiest? Which looks most powerful?<br><br>
+                    <strong>Language Selection Guide for Students:</strong>
+                    <ul>
+                        <li>Want to make websites? → HTML + JavaScript</li>
+                        <li>Want to do AI/ML? → Python</li>
+                        <li>Want to make fast games? → C++</li>
+                        <li>Want to try everything? → Python first!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: First Hands-On Experience</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Activity</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>HTML Mini-Project</strong></td>
+                            <td>Students open Notepad, type <code>&lt;h1&gt;My First Page&lt;/h1&gt;</code>, save as <code>.html</code>, open in browser. Magic moment!</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Python Playground</strong></td>
+                            <td>Use Replit or Python IDLE. Students type <code>name = input("What's your name? ")</code> and <code>print("Hello", name)</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JavaScript Console</strong></td>
+                            <td>Open browser console (F12). Type <code>console.log("I can code!")</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>C++ Demo</strong></td>
+                            <td>Show a pre-written C++ program. Compile and run. Explain it runs faster than Python.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>📋 Assessment:</strong> Match language to use case + Write "Hello World" in any 2 languages + "Which language would you learn and why?" (paragraph)
+                </div>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students understand what programming is, know the purpose of each language, and write their first lines of code.
+            </div>
+        </section>
+
+        <!-- TOPIC 5 -->
+        <section class="topic" id="topic5">
+            <div class="topic-header">
+                <div class="topic-number">5</div>
+                <div>
+                    <h2 class="topic-title">Basics of HTML</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 5-7 | Project: Personal Profile Page</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: HTML Structure & Tags</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Code Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is HTML?</strong></td>
+                            <td><strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage. Skeleton of every website.</td>
+                            <td>—</td>
+                            <td><strong>Analogy:</strong> HTML is like the bones of a body. CSS is skin/clothes. JavaScript is muscles/movement.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Basic Structure</strong></td>
+                            <td>Every HTML page needs <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code></td>
+                            <td>
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;My Page&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;Hello!&lt;/body&gt;
+&lt;/html&gt;</pre>
+                            </td>
+                            <td>Students type this in Notepad and see it in browser.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Heading Tags</strong></td>
+                            <td><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> — Biggest to smallest headings.</td>
+                            <td><code>&lt;h1&gt;Main Title&lt;/h1&gt;</code></td>
+                            <td><strong>Activity:</strong> Create a "Newspaper" with h1 (headline), h2 (sub-headline), h3 (article title).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paragraph Tag</strong></td>
+                            <td><code>&lt;p&gt;</code> for text paragraphs.</td>
+                            <td><code>&lt;p&gt;This is my first paragraph.&lt;/p&gt;</code></td>
+                            <td>Students write 3 paragraphs about their favorite hobby.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Line Break & Horizontal Rule</strong></td>
+                            <td><code>&lt;br&gt;</code> = new line, <code>&lt;hr&gt;</code> = horizontal line.</td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> Write a poem with proper line breaks using <code>&lt;br&gt;</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Comments</strong></td>
+                            <td><code>&lt;!-- This is hidden --&gt;</code> — For notes, not shown on page.</td>
+                            <td>—</td>
+                            <td>Students add comments explaining their code.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Formatting, Links, Images & Lists</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Tag</th><th>Purpose</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Text Formatting</strong></td>
+                            <td><code>&lt;b&gt;</code> bold, <code>&lt;i&gt;</code> italic, <code>&lt;u&gt;</code> underline, <code>&lt;mark&gt;</code> highlight, <code>&lt;del&gt;</code> strikethrough</td>
+                            <td><code>&lt;p&gt;&lt;b&gt;Bold&lt;/b&gt; and &lt;i&gt;italic&lt;/i&gt; text&lt;/p&gt;</code></td>
+                            <td><strong>Activity:</strong> Create a "Wanted Poster" with all formatting tags.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Links (Anchor Tag)</strong></td>
+                            <td><code>&lt;a href="URL"&gt;Clickable Text&lt;/a&gt;</code></td>
+                            <td><code>&lt;a href="https://google.com"&gt;Visit Google&lt;/a&gt;</code></td>
+                            <td><strong>Project:</strong> Create a "My Favorite Websites" page with 5 links.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Images</strong></td>
+                            <td><code>&lt;img src="image.jpg" alt="Description"&gt;</code></td>
+                            <td><code>&lt;img src="cat.jpg" alt="Cute cat"&gt;</code></td>
+                            <td><strong>Activity:</strong> Download 3 images. Create a "Photo Gallery" page.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unordered Lists</strong></td>
+                            <td><code>&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</code> — Bulleted list.</td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> List "5 Things I Love About My School."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ordered Lists</strong></td>
+                            <td><code>&lt;ol&gt;&lt;li&gt;Step 1&lt;/li&gt;&lt;/ol&gt;</code> — Numbered list.</td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> Write "Steps to Make Maggi" using ordered list.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tables</strong></td>
+                            <td><code>&lt;table&gt;&lt;tr&gt;&lt;th&gt;Header&lt;/th&gt;&lt;td&gt;Data&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code></td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> Create a "Class Timetable" using HTML table.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: Forms & Mini Project</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Input Types</strong></td>
+                            <td>Text, password, email, number, date, checkbox, radio, submit.</td>
+                            <td><code>&lt;input type="text" placeholder="Your name"&gt;</code></td>
+                            <td><strong>Demo:</strong> Create a "Student Registration Form" with all input types.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Labels & Placeholders</strong></td>
+                            <td><code>&lt;label&gt;</code> describes the field. <code>placeholder</code> shows hint text.</td>
+                            <td>—</td>
+                            <td>Students make their form accessible and user-friendly.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Textarea</strong></td>
+                            <td><code>&lt;textarea&gt;</code> for multi-line text (comments, essays).</td>
+                            <td>—</td>
+                            <td>Add a "Tell us about yourself" field.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Select Dropdown</strong></td>
+                            <td><code>&lt;select&gt;&lt;option&gt;Choice 1&lt;/option&gt;&lt;/select&gt;</code></td>
+                            <td>—</td>
+                            <td>Add "Favorite Subject" dropdown.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mini Project</strong></td>
+                            <td colspan="3"><strong>"Create Your Personal Profile Page"</strong> — Must include: Name, photo, about me, hobbies list, favorite websites links, a contact form.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students build a complete personal webpage using pure HTML.
+            </div>
+        </section>
+
+        <!-- TOPIC 6 -->
+        <section class="topic" id="topic6">
+            <div class="topic-header">
+                <div class="topic-number">6</div>
+                <div>
+                    <h2 class="topic-title">Basics of Website Development</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 6-9 | Project: Portfolio Website</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: CSS Fundamentals</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is CSS?</strong></td>
+                            <td><strong>C</strong>ascading <strong>S</strong>tyle <strong>S</strong>heets. Controls colors, fonts, layout, spacing.</td>
+                            <td>—</td>
+                            <td><strong>Analogy:</strong> HTML = house structure. CSS = paint, furniture, decorations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3 Ways to Add CSS</strong></td>
+                            <td>Inline (<code>style=""</code>), Internal (<code>&lt;style&gt;</code>), External (<code>.css</code> file).</td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> Try all 3 methods on the same page. See which is best.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Selectors</strong></td>
+                            <td>Element (<code>p</code>), Class (<code>.highlight</code>), ID (<code>#header</code>).</td>
+                            <td><code>.red-text { color: red; }</code></td>
+                            <td><strong>Game:</strong> "CSS Detective" — find which selector applies to which element.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Colors</strong></td>
+                            <td>Names (<code>red</code>), Hex (<code>#FF0000</code>), RGB (<code>rgb(255,0,0)</code>).</td>
+                            <td><code>background-color: lightblue;</code></td>
+                            <td><strong>Activity:</strong> Create a "Rainbow Page" with 7 divs in rainbow colors.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fonts & Text</strong></td>
+                            <td><code>font-family</code>, <code>font-size</code>, <code>font-weight</code>, <code>text-align</code>.</td>
+                            <td><code>font-family: Arial; font-size: 24px;</code></td>
+                            <td>Students style their HTML profile page from Topic 5.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Box Model</strong></td>
+                            <td>Content → Padding → Border → Margin (like a gift box).</td>
+                            <td><code>padding: 20px; border: 2px solid black; margin: 10px;</code></td>
+                            <td><strong>Activity:</strong> Create 3 boxes with different padding/border/margin. Visualize with colored backgrounds.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Layout & Responsive Design</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Display Property</strong></td>
+                            <td><code>block</code>, <code>inline</code>, <code>inline-block</code>, <code>none</code>, <code>flex</code>.</td>
+                            <td><code>display: flex;</code></td>
+                            <td><strong>Activity:</strong> Create a navigation bar using <code>display: flex</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flexbox</strong></td>
+                            <td>Arranges items in rows/columns easily.</td>
+                            <td><code>justify-content: center; align-items: center;</code></td>
+                            <td><strong>Challenge:</strong> Center a div perfectly (horizontally + vertically) using Flexbox.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Positioning</strong></td>
+                            <td><code>static</code>, <code>relative</code>, <code>absolute</code>, <code>fixed</code>, <code>sticky</code>.</td>
+                            <td><code>position: fixed; top: 0;</code></td>
+                            <td><strong>Activity:</strong> Create a "sticky header" that stays at top when scrolling.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Responsive Design</strong></td>
+                            <td>Website looks good on mobile, tablet, and desktop.</td>
+                            <td><code>@media (max-width: 600px) { ... }</code></td>
+                            <td><strong>Demo:</strong> Open a website on phone vs laptop. Discuss differences.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Viewport Meta Tag</strong></td>
+                            <td>Tells browser how to scale on mobile.</td>
+                            <td><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></td>
+                            <td>Add to all pages. Test on different screen sizes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: JavaScript Basics + Project</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is JavaScript?</strong></td>
+                            <td>Makes websites interactive and dynamic.</td>
+                            <td>—</td>
+                            <td><strong>Demo:</strong> Show a static page, then add JS — button click changes color. "Wow!" moment.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Variables</strong></td>
+                            <td><code>let name = "Rahul";</code> or <code>const PI = 3.14;</code></td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> Create variables for student name, age, class. Display on page.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Functions</strong></td>
+                            <td>Reusable blocks of code.</td>
+                            <td><code>function sayHello() { alert("Hello!"); }</code></td>
+                            <td><strong>Activity:</strong> Create a button that says "Good Morning" in 3 languages when clicked.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Event Listeners</strong></td>
+                            <td><code>onclick</code>, <code>onmouseover</code>, <code>onkeydown</code>.</td>
+                            <td><code>&lt;button onclick="changeColor()"&gt;Click Me&lt;/button&gt;</code></td>
+                            <td><strong>Activity:</strong> Create a "Magic Button" that changes background color randomly.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DOM Manipulation</strong></td>
+                            <td>Change HTML elements with JavaScript.</td>
+                            <td><code>document.getElementById("box").style.backgroundColor = "red";</code></td>
+                            <td><strong>Activity:</strong> Create a "Color Picker" — click a color, page background changes.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Final Project</strong></td>
+                            <td colspan="3"><strong>"Build a Personal Portfolio Website"</strong> — Requirements: HTML structure, CSS styling, JS interactivity (theme toggle, greeting based on time).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students build a responsive, interactive personal portfolio website.
+            </div>
+        </section>
+
+        <!-- TOPIC 7 -->
+        <section class="topic" id="topic7">
+            <div class="topic-header">
+                <div class="topic-number">7</div>
+                <div>
+                    <h2 class="topic-title">Basic Game Development</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 7-10 | Project: Browser Game</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: Game Design Fundamentals</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What Makes a Game?</strong></td>
+                            <td>Rules, goal, challenge, feedback, fun!</td>
+                            <td>—</td>
+                            <td><strong>Discussion:</strong> "Is TikTok a game? Is chess a game? Why?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Game Loop</strong></td>
+                            <td>Input → Update → Render → Repeat (60 times/second).</td>
+                            <td>Like a flipbook — each page is a "frame."</td>
+                            <td><strong>Activity:</strong> Create a paper flipbook animation. Understand frames.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Game Elements</strong></td>
+                            <td>Player, enemies, score, lives, levels, power-ups, timer.</td>
+                            <td>Mario: Player=Plumber, Enemy=Goomba, Score=coins, Lives=hearts.</td>
+                            <td><strong>Activity:</strong> Design a game on paper. Label all elements.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Game Genres</strong></td>
+                            <td>Platformer, puzzle, racing, RPG, strategy, simulation.</td>
+                            <td>—</td>
+                            <td>Students vote on genre to build in class.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Game Engines</strong></td>
+                            <td>Software that helps make games. Unity, Godot, Construct.</td>
+                            <td>—</td>
+                            <td><strong>Demo:</strong> Show Unity/Godot interface. Explain it's like "advanced PowerPoint for games."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Building a Game with JavaScript</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Code Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Canvas Element</strong></td>
+                            <td><code>&lt;canvas&gt;</code> is a drawing area in HTML for games.</td>
+                            <td><code>&lt;canvas id="game" width="400" height="400"&gt;&lt;/canvas&gt;</code></td>
+                            <td>Set up canvas. Draw a rectangle.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Drawing Shapes</strong></td>
+                            <td><code>fillRect()</code>, <code>arc()</code>, <code>fillStyle</code>.</td>
+                            <td><code>ctx.fillStyle = "blue"; ctx.fillRect(50, 50, 100, 100);</code></td>
+                            <td><strong>Activity:</strong> Draw a house, sun, and tree on canvas.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Animation Basics</strong></td>
+                            <td><code>requestAnimationFrame()</code> for smooth movement.</td>
+                            <td>Move a ball across screen.</td>
+                            <td><strong>Activity:</strong> Make a bouncing ball.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Keyboard Input</strong></td>
+                            <td><code>addEventListener("keydown", ...)</code> to detect key presses.</td>
+                            <td>Move player with arrow keys.</td>
+                            <td><strong>Activity:</strong> Create a square that moves with arrow keys.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collision Detection</strong></td>
+                            <td>Check if two objects overlap.</td>
+                            <td><code>if (ball.x &lt; paddle.x + paddle.width) { ... }</code></td>
+                            <td><strong>Activity:</strong> Ball bounces off walls.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Score & Game Over</strong></td>
+                            <td>Variables to track score. Condition to end game.</td>
+                            <td><code>score++; if (lives === 0) gameOver();</code></td>
+                            <td>Add scoring to bouncing ball game.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: Complete Game Project</h3>
+                <p style="margin-bottom: 15px;"><strong>Build "Snake Game" or "Catch the Falling Objects"</strong></p>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Feature</th><th>Implementation</th><th>Student Task</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Game Board</strong></td>
+                            <td>Canvas setup, grid system.</td>
+                            <td>Draw the grid.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Player Control</strong></td>
+                            <td>Arrow keys move the snake/player.</td>
+                            <td>Add keyboard controls.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Collectibles</strong></td>
+                            <td>Food appears randomly.</td>
+                            <td>Make food appear and disappear.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scoring</strong></td>
+                            <td>+10 points per food eaten.</td>
+                            <td>Display score on screen.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Game Over</strong></td>
+                            <td>Wall collision or self-collision ends game.</td>
+                            <td>Add game over screen with "Play Again" button.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sound Effects</strong></td>
+                            <td><code>new Audio("beep.mp3").play();</code></td>
+                            <td>Add sound on eat and game over.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>📋 Assessment:</strong> Students present their game. Class plays each other's games. Vote "Most Fun," "Best Design," "Most Creative."
+                </div>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students understand game mechanics and build a playable browser game.
+            </div>
+        </section>
+
+        <!-- TOPIC 8 -->
+        <section class="topic" id="topic8">
+            <div class="topic-header">
+                <div class="topic-number">8</div>
+                <div>
+                    <h2 class="topic-title">Chatbot Generation</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 7-10 | Project: School FAQ Bot</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: What is a Chatbot?</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Chatbot Definition</strong></td>
+                            <td>A computer program that talks to humans through text or voice.</td>
+                            <td>Siri, Alexa, ChatGPT, WhatsApp business bots.</td>
+                            <td><strong>Activity:</strong> Students chat with ChatGPT for 5 minutes. Note what it does well/poorly.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Types of Chatbots</strong></td>
+                            <td><strong>Rule-based</strong> (follows decision trees) vs <strong>AI-based</strong> (understands context).</td>
+                            <td>Rule-based: Bank IVR ("Press 1 for balance"). AI-based: ChatGPT.</td>
+                            <td><strong>Role Play:</strong> One student is "Rule Bot" (only answers pre-set questions). One is "AI Bot" (can improvise). Compare.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chatbot Architecture</strong></td>
+                            <td>User Input → NLP (understand) → Intent Matching → Response Generation → Output.</td>
+                            <td>—</td>
+                            <td><strong>Diagram Activity:</strong> Draw the chatbot flowchart on chart paper.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Use Cases</strong></td>
+                            <td>Customer service, education, healthcare, e-commerce, entertainment.</td>
+                            <td>—</td>
+                            <td><strong>Brainstorm:</strong> "What chatbot would help our school?" (Admission bot, homework helper, etc.)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Building a Simple Chatbot</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Method</th><th>Tool</th><th>What Students Do</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>No-Code Platform</strong></td>
+                            <td>Dialogflow (Google), Botpress, or Landbot</td>
+                            <td>Create a "Pizza Ordering Bot" with buttons and text responses.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Python + NLTK</strong></td>
+                            <td>For older students (Classes 9-10)</td>
+                            <td>Write a simple rule-based bot using <code>if-else</code> statements.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HTML + JavaScript</strong></td>
+                            <td>For all students</td>
+                            <td>Create a chat interface in browser.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>💻 Python Simple Chatbot Code (Classes 9-10):</strong>
+                </div>
+<pre>def chatbot():
+    print("Hi! I'm your friendly bot. Type 'bye' to exit.")
+    while True:
+        user = input("You: ").lower()
+        if "hello" in user:
+            print("Bot: Hello there! How can I help?")
+        elif "name" in user:
+            print("Bot: I'm ChatBot 1.0!")
+        elif "bye" in user:
+            print("Bot: Goodbye! Have a great day!")
+            break
+        else:
+            print("Bot: I didn't understand. Can you rephrase?")
+
+chatbot()</pre>
+
+                <div class="activity-box">
+                    <strong>Activity for All Students:</strong> Use a no-code tool to create a "School FAQ Bot" that answers:
+                    <ul>
+                        <li>"What time does school start?"</li>
+                        <li>"Who is the principal?"</li>
+                        <li>"What is today's lunch menu?"</li>
+                        <li>"How do I apply for leave?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: Advanced Features & Project</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Feature</th><th>Explanation</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Intent Recognition</strong></td>
+                            <td>Understanding what user WANTS, not just what they say.</td>
+                            <td>"I'm hungry" → Intent: Order Food.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Entities</strong></td>
+                            <td>Key information extracted: dates, names, numbers.</td>
+                            <td>"Book a table for 4 tomorrow at 7 PM" → Entities: 4 people, tomorrow, 7 PM.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Context Memory</strong></td>
+                            <td>Bot remembers previous messages in conversation.</td>
+                            <td><strong>Activity:</strong> Extend bot to ask follow-up questions.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integration</strong></td>
+                            <td>Connect bot to WhatsApp, website, or Telegram.</td>
+                            <td><strong>Demo:</strong> Show a live bot on a school website.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Final Project</strong></td>
+                            <td colspan="2"><strong>"Create a Helpful Chatbot"</strong> — Students build a bot for: School library, Cafeteria menu, Homework help, or Tourist guide for their city.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Presentation</strong></td>
+                            <td colspan="2">Each team demos their bot. Others test it with tricky questions.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students understand chatbot concepts and build a functional conversational agent.
+            </div>
+        </section>
+
+        <!-- TOPIC 9 -->
+        <section class="topic" id="topic9">
+            <div class="topic-header">
+                <div class="topic-number">9</div>
+                <div>
+                    <h2 class="topic-title">Basic App Development</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 6-10 | Project: Mobile Calculator/Utility App</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: App Development Basics</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Example</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Native vs Cross-Platform</strong></td>
+                            <td><strong>Native</strong> = built for one OS (Swift for iOS, Kotlin for Android). <strong>Cross-platform</strong> = one code, both OS (Flutter, React Native).</td>
+                            <td>—</td>
+                            <td><strong>Discussion:</strong> "Should we build separate apps or one app for both? Pros and cons."</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Components</strong></td>
+                            <td>Screen (UI), Logic (code), Data (storage), API (internet connection).</td>
+                            <td>WhatsApp: Chat screen + Send message code + Message history + Internet for sending.</td>
+                            <td><strong>Activity:</strong> Break down a favorite app into these 4 components.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Design Principles</strong></td>
+                            <td>Simple, intuitive, fast, accessible, beautiful.</td>
+                            <td>—</td>
+                            <td><strong>Critique Activity:</strong> Students analyze a bad app design and suggest improvements.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Wireframing</strong></td>
+                            <td>Drawing app screens before coding. Like a blueprint.</td>
+                            <td>—</td>
+                            <td><strong>Activity:</strong> Draw 3 screens of a "To-Do List App" on paper.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Building an App (No-Code/Low-Code)</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Platform</th><th>Best For</th><th>What to Build</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MIT App Inventor</strong></td>
+                            <td>Beginners (Classes 5-8)</td>
+                            <td>Drag-and-drop blocks. Build Android apps.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thunkable</strong></td>
+                            <td>Intermediate</td>
+                            <td>Cross-platform apps. More features.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flutter Flow</strong></td>
+                            <td>Advanced visual</td>
+                            <td>Professional-looking apps with less code.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>📱 MIT App Inventor Project: "My Calculator App"</strong>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Step</th><th>What to Do</th><th>Blocks/Code</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1</strong></td>
+                            <td>Design UI</td>
+                            <td>Add 2 TextBoxes (numbers), 4 Buttons (+, -, ×, ÷), 1 Label (result).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2</strong></td>
+                            <td>Add Logic</td>
+                            <td>When "Add" button clicked: set Label.Text = TextBox1.Text + TextBox2.Text</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3</strong></td>
+                            <td>Test</td>
+                            <td>Connect to phone or emulator. Test with real numbers.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4</strong></td>
+                            <td>Improve</td>
+                            <td>Add Clear button, decimal support, error handling (divide by zero).</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>Activity:</strong> Students follow along and build the calculator. Test on their phones if possible.
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: App Project & Publishing Concepts</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Topic</th><th>Explanation</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Storage</strong></td>
+                            <td>Local (on phone) vs Cloud (internet).</td>
+                            <td><strong>Demo:</strong> Save a note in app. Close app. Reopen. Is it still there?</td>
+                        </tr>
+                        <tr>
+                            <td><strong>APIs in Apps</strong></td>
+                            <td>Getting data from the internet. Weather apps use weather API.</td>
+                            <td><strong>Activity:</strong> Add a "Get Weather" button that fetches and displays weather data.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>App Publishing</strong></td>
+                            <td>Google Play Store ($25 one-time), Apple App Store ($99/year). Steps: Build → Test → Icon → Screenshots → Description → Submit → Review → Publish.</td>
+                            <td><strong>Activity:</strong> Create a "Play Store Listing" on paper: App name, icon, 3 screenshots, description, category.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Final Project</strong></td>
+                            <td colspan="2"><strong>"Build a Useful App"</strong> — Ideas: Student Attendance Tracker, Quiz App, Birthday Reminder, Expense Tracker, Language Learning Flashcards.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Presentation</strong></td>
+                            <td colspan="2">Each student/team presents their app. Class votes "Most Useful," "Best Design," "Most Creative."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students understand app architecture and build a functional mobile app.
+            </div>
+        </section>
+
+        <!-- TOPIC 10 -->
+        <section class="topic" id="topic10">
+            <div class="topic-header">
+                <div class="topic-number">10</div>
+                <div>
+                    <h2 class="topic-title">IoT Introduction</h2>
+                    <p class="topic-meta">⏱️ 3 Hours | Best for: Classes 7-10 | Project: Smart Light / IoT Solution Design</p>
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 1: IoT Fundamentals</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Concept</th><th>Explanation</th><th>Analogy</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>What is IoT?</strong></td>
+                            <td><strong>I</strong>nternet of <strong>T</strong>hings = Everyday objects connected to the internet, sharing data.</td>
+                            <td>Your fridge texts you "Buy milk!" Your shoes tell your phone "I walked 5000 steps today."</td>
+                            <td><strong>Discussion:</strong> "How many 'smart' devices are in your home?" List on board.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT Components</strong></td>
+                            <td><strong>Sensors</strong> (feel), <strong>Connectivity</strong> (WiFi/Bluetooth), <strong>Data Processing</strong> (brain), <strong>User Interface</strong> (app/screen).</td>
+                            <td>Human body: Eyes/ears = sensors, Nerves = connectivity, Brain = processing, Mouth = UI.</td>
+                            <td><strong>Activity:</strong> Match IoT devices to these 4 components (Smartwatch, Smart bulb, Smart doorbell).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>How IoT Works</strong></td>
+                            <td>Sensor collects data → Sends to cloud → AI/processed → Action taken → User notified.</td>
+                            <td>—</td>
+                            <td><strong>Draw the Flow:</strong> Students draw the IoT data flow for a smart home.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT Examples</strong></td>
+                            <td>Smart home (lights, AC, locks), Smart cities (traffic lights, waste management), Agriculture (soil sensors), Healthcare (heart monitors), Wearables (fitness bands).</td>
+                            <td>—</td>
+                            <td><strong>Group Activity:</strong> Each group gets one domain. List 5 IoT devices in that domain.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 2: Hands-On IoT (Simulated/Real)</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Activity</th><th>Description</th><th>Tools</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tinkercad Circuits</strong></td>
+                            <td>Free online simulator. No hardware needed!</td>
+                            <td>Build a circuit with Arduino + LED. Make LED blink.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blynk App</strong></td>
+                            <td>Control Arduino from phone.</td>
+                            <td>Turn LED on/off using phone app.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temperature Monitor</strong></td>
+                            <td>Use DHT11 sensor (real or simulated).</td>
+                            <td>Read room temperature. Display on serial monitor.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Smart Light Project</strong></td>
+                            <td>PIR motion sensor + LED.</td>
+                            <td>Light turns on when someone enters room.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip">
+                    <strong>💡 Simulated Activity (No Hardware Needed):</strong>
+                </div>
+                <ul>
+                    <li>Use Tinkercad to build: Arduino Uno + Breadboard + LED + Resistor + Jumper wires.</li>
+                    <li>Write code: <code>digitalWrite(LED_PIN, HIGH); delay(1000); digitalWrite(LED_PIN, LOW); delay(1000);</code></li>
+                    <li>See LED blink in simulation. Then try on real hardware if available.</li>
+                </ul>
+
+                <div class="activity-box">
+                    <strong>Reference:</strong> Microsoft IoT for Beginners — 12-week project-based course covering farm-to-table IoT applications.
+                </div>
+            </div>
+
+            <div class="hour">
+                <h3 class="hour-title"> Hour 3: IoT Applications, Security & Future</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Topic</th><th>Explanation</th><th>Case Study/Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Smart Agriculture</strong></td>
+                            <td>Soil sensors check moisture. Auto-irrigation when dry. Drones spray pesticides.</td>
+                            <td><strong>Case Study:</strong> Indian farmer uses IoT to save 40% water. Discuss impact.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Smart Healthcare</strong></td>
+                            <td>Wearable heart monitors alert doctors. Pill dispensers remind patients.</td>
+                            <td><strong>Activity:</strong> Design an IoT device to help elderly grandparents.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Smart Cities</strong></td>
+                            <td>Smart traffic lights reduce jams. Smart bins alert when full.</td>
+                            <td><strong>Discussion:</strong> "What IoT would make your city smarter?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT Security Risks</strong></td>
+                            <td>Hacked smart cameras, stolen data, botnet attacks.</td>
+                            <td><strong>Case Study:</strong> 2016 Mirai botnet hacked millions of IoT devices.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Privacy Concerns</strong></td>
+                            <td>Your smart speaker listens. Your fitness band tracks location.</td>
+                            <td><strong>Debate:</strong> "Convenience vs Privacy — where do we draw the line?"</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Future of IoT</strong></td>
+                            <td>6G, AI + IoT = AIoT, brain-computer interfaces, smart everything.</td>
+                            <td><strong>Creative Writing:</strong> "Write a story about a day in 2050 where EVERYTHING is IoT-connected."</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="activity-box">
+                    <strong>📋 Assessment:</strong> Label an IoT system diagram + "Design an IoT solution for one school problem" (attendance, canteen queue, library management).
+                </div>
+            </div>
+
+            <div class="outcome">
+                <strong>🎯 Learning Outcome:</strong> Students understand IoT architecture, build a simple circuit, and design IoT solutions for real problems.
+            </div>
+        </section>
+
+        <!-- TOOLS SECTION -->
+        <section class="topic" id="tools">
+            <div class="topic-header">
+                <div class="topic-number" style="background: linear-gradient(135deg, #10b981, #059669);">🛠️</div>
+                <div>
+                    <h2 class="topic-title">Recommended Free Tools for Teaching</h2>
+                    <p class="topic-meta">All tools are free and student-safe</p>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>🤖 Teachable Machine</h4>
+                    <p>Train AI models without coding</p>
+                    <span class="tag tag-blue">teachablemachine.withgoogle.com</span>
+                </div>
+                <div class="card">
+                    <h4>🧩 Scratch</h4>
+                    <p>Visual programming for kids</p>
+                    <span class="tag tag-orange">scratch.mit.edu</span>
+                </div>
+                <div class="card">
+                    <h4>📱 MIT App Inventor</h4>
+                    <p>Build Android apps with blocks</p>
+                    <span class="tag tag-green">appinventor.mit.edu</span>
+                </div>
+                <div class="card">
+                    <h4>💻 Replit</h4>
+                    <p>Online coding environment</p>
+                    <span class="tag tag-purple">replit.com</span>
+                </div>
+                <div class="card">
+                    <h4>🔌 Tinkercad Circuits</h4>
+                    <p>IoT/Arduino simulation</p>
+                    <span class="tag tag-blue">tinkercad.com</span>
+                </div>
+                <div class="card">
+                    <h4>🎨 Code.org</h4>
+                    <p>Structured coding courses</p>
+                    <span class="tag tag-green">code.org</span>
+                </div>
+                <div class="card">
+                    <h4>🖼️ Canva</h4>
+                    <p>Create posters, presentations</p>
+                    <span class="tag tag-purple">canva.com</span>
+                </div>
+                <div class="card">
+                    <h4>🧪 Google AI Experiments</h4>
+                    <p>Fun AI demos</p>
+                    <span class="tag tag-orange">experiments.withgoogle.com</span>
+                </div>
+                <div class="card">
+                    <h4>📡 Microsoft IoT for Beginners</h4>
+                    <p>12-week IoT curriculum</p>
+                    <span class="tag tag-blue">microsoft.github.io/IoT-For-Beginners</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUMMARY SECTION -->
+        <section class="topic" id="summary">
+            <div class="topic-header">
+                <div class="topic-number" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📋</div>
+                <div>
+                    <h2 class="topic-title">Complete Summary Table</h2>
+                    <p class="topic-meta">All 10 Topics at a Glance</p>
+                </div>
+            </div>
+
+            <table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Topic</th>
+                        <th>Key Skills</th>
+                        <th>Best For</th>
+                        <th>Project Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-blue">1</span></td>
+                        <td>AI & Computer Basics</td>
+                        <td>Computer parts, AI concepts, pattern recognition</td>
+                        <td>Classes 1-5</td>
+                        <td>AI Timeline + Robot Drawing</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-purple">2</span></td>
+                        <td>Types of AI, Prompting, Ethics</td>
+                        <td>AI classification, prompt writing, ethical thinking</td>
+                        <td>Classes 5-7</td>
+                        <td>AI Ethics Pledge Poster</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-green">3</span></td>
+                        <td>AI for Academics, GenAI</td>
+                        <td>Using AI tools, GenAI understanding, academic integrity</td>
+                        <td>Classes 6-8</td>
+                        <td>Student AI Toolkit</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-orange">4</span></td>
+                        <td>Code Language Basics</td>
+                        <td>Programming concepts, language comparison</td>
+                        <td>Classes 5-8</td>
+                        <td>"Hello World" in 2 languages</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-blue">5</span></td>
+                        <td>HTML Basics</td>
+                        <td>Tags, structure, forms</td>
+                        <td>Classes 5-7</td>
+                        <td>Personal Profile Page</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-purple">6</span></td>
+                        <td>Website Development</td>
+                        <td>CSS, JS, responsive design</td>
+                        <td>Classes 6-9</td>
+                        <td>Portfolio Website</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-green">7</span></td>
+                        <td>Game Development</td>
+                        <td>Game loops, canvas, animation</td>
+                        <td>Classes 7-10</td>
+                        <td>Browser Game</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-orange">8</span></td>
+                        <td>Chatbot Generation</td>
+                        <td>NLP basics, bot architecture, no-code tools</td>
+                        <td>Classes 7-10</td>
+                        <td>School FAQ Bot</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-blue">9</span></td>
+                        <td>App Development</td>
+                        <td>App design, MIT App Inventor, publishing</td>
+                        <td>Classes 6-10</td>
+                        <td>Mobile Calculator/Utility App</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-purple">10</span></td>
+                        <td>IoT Introduction</td>
+                        <td>Sensors, circuits, smart systems</td>
+                        <td>Classes 7-10</td>
+                        <td>Smart Light / IoT Solution Design</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tip" style="margin-top: 30px;">
+                <strong>🎓 Teaching Tips for Maximum Engagement:</strong>
+                <ol style="margin-top: 10px; padding-left: 20px;">
+                    <li><strong>Start with "Why?"</strong> — Always explain why this topic matters in real life.</li>
+                    <li><strong>Use Analogies</strong> — Compare tech concepts to daily life (cooking, sports, school).</li>
+                    <li><strong>Hands-On First</strong> — Let students DO before they fully understand. Learning by doing works best.</li>
+                    <li><strong>Peer Teaching</strong> — Let students who "get it" help others. Teaching reinforces learning.</li>
+                    <li><strong>Show, Don't Tell</strong> — Live demos beat slides every time.</li>
+                    <li><strong>Celebrate Mistakes</strong> — "Bugs" are learning opportunities. Create a safe space to fail.</li>
+                    <li><strong>Connect to India</strong> — Use Indian examples (ISRO, UPI, Jio, Indian startups) to make it relatable.</li>
+                    <li><strong>Differentiate</strong> — For younger students (1-5), focus on concepts and unplugged activities. For older students (6-10), add coding and projects.</li>
+                </ol>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(124,58,237,0.1)); border-radius: 16px;">
+                <h3 style="color: var(--primary); margin-bottom: 10px;">🍎 Good Luck with Your Teaching!</h3>
+                <p style="color: var(--text-light);">This curriculum is designed to be <strong>practical, engaging, and age-appropriate</strong>. Each 3-hour session balances theory (30%), demonstration (30%), and hands-on practice (40%). Adjust complexity based on your students' grade level and prior knowledge.</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            localStorage.setItem('theme', current === 'dark' ? 'light' : 'dark');
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+
+        // Active Nav Item
+        function setActive(el) {
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        // Scroll spy for nav
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.topic');
+            const navItems = document.querySelectorAll('.nav-item');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
